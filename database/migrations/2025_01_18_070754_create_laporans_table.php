@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('laporans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transaksi_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->int('total_pendapatan');
+            $table->int('pemasukan');
+            $table->int('pengeluaran');
+            $table->date('tanggal');
+            $table->string('keterangan');
+            $table->string('kendala');
+            $table->string('solusi');
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('masakans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transaksi_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('masakan_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->int('harga_satuan');
+            $table->int('jumlah_satuan');
+            $table->int('total_harga');
             $table->timestamps();
         });
     }
