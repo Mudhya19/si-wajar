@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaksi_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('masakan_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->int('harga_satuan');
-            $table->int('jumlah_satuan');
-            $table->int('total_harga');
+            $table->string('harga_satuan');
+            $table->string('jumlah_satuan');
+            $table->string('total_harga');
             $table->timestamps();
         });
     }

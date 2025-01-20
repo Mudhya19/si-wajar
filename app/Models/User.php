@@ -21,6 +21,17 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
+     * @var string[]
+     */
+    protected $guarded = ['id'];
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
      * @var array<int, string>
      */
     protected $fillable = [
