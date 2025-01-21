@@ -12,6 +12,6 @@ class Menu extends Model
 
     public function masakan()
     {
-        return $this->belongsTo(Masakan::class);
+        return $this->belongTo(Masakan::class);
     }
 }

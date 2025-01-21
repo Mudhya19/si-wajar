@@ -12,8 +12,8 @@ class Masakan extends Model
 
     public function transaksi()
     {
-        return $this->belongsTo(Transaksi::class);
-    }
+        return $this->belongTo(Transaksi::class);
+    }   
 
     public function menu()
     {

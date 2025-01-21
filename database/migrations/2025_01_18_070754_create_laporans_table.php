@@ -18,9 +18,9 @@ return new class extends Migration
             $table->sstring('pemasukan');
             $table->sstring('pengeluaran');
             $table->date('tanggal');
-            $table->string('keterangan');
-            $table->string('kendala');
-            $table->string('solusi');
+            $table->string('keterangan')->nullalable;
+            $table->string('kendala')->nullalable;
+            $table->string('solusi')->nullalable;
             $table->timestamps();
         });
     }

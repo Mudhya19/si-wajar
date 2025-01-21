@@ -12,7 +12,7 @@ class Laporan extends Model
 
     public function laporan()
     {
-        return $this->belongsTo(Laporan::class);
+        return $this->hasMany(Laporan::class);
     }
 
 }
