@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('laporans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaksi_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->sstring('total_pendapatan');
-            $table->sstring('pemasukan');
-            $table->sstring('pengeluaran');
+            $table->integer('total_pendapatan');
+            $table->integer('pemasukan');
+            $table->integer('pengeluaran');
             $table->date('tanggal');
             $table->string('keterangan')->nullalable;
             $table->string('kendala')->nullalable;

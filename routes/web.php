@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\backend\v1\MenuController;
+use App\Http\Controllers\backend\v1\LaporanController;
+use App\Http\Controllers\backend\v1\MasakanController;
+use App\Http\Controllers\backend\v1\UserController;
+use App\Http\Controllers\backend\v1\TransaksiController;
+use App\Http\Controllers\backend\v1\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,13 +22,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('backend.v1.templates.index');
 });
+Route::resource('menu', MenuController::class);
+Route::resource('masakan', MasakanController::class);
+Route::resource('user', UserController::class);
+Route::resource('transaksi', TransaksiController::class);
+Route::resource('laporan', LaporanController::class);
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/', function () {return view('dashboard');})->name('dashboard');
+    // Route::get('/', function () {
+    //     return view('backend.v1.templates.index');
+    // });
+    // Route::resource('menu', MenuController::class);
+    // Route::resource('masakan', MasakanController::class);
+    // Route::resource('user', UserController::class);
+    // Route::resource('transaksi', TransaksiController::class);
+    // Route::resource('laporan', LaporanController::class);
 });

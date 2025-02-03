@@ -19,6 +19,15 @@
                 </svg> Dashboard<span class="badge badge-sm bg-info ms-auto"></span>
             </a>
         </li>
+        <hr class="sidebar-divider">
+        <li
+            class="nav-item {{ in_array(Route::currentRouteName(), ['menu.index', 'menu.create', 'menu.edit']) ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('menu.index') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-speedometer"></use>
+                </svg>Menu<span class="badge badge-sm bg-info ms-auto"></span>
+            </a>
+        </li>
     </ul>
     <!-- Konten Sidebar -->
     <div class="sidebar-content flex-grow-1">

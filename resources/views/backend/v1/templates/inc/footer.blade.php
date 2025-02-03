@@ -1,4 +1,3 @@
-
     <footer class="footer px-4">
         <div>
             <a href="https://coreui.io">CoreUI </a>
@@ -9,3 +8,4 @@
             Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI UI Components</a>
         </div>
     </footer>
+</div>

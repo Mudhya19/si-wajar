@@ -10,9 +10,9 @@ class Laporan extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function laporan()
+    public function transaksi()
     {
-        return $this->hasMany(Laporan::class);
+        return $this->hasMany(Transaksi::class);
     }
 
 }

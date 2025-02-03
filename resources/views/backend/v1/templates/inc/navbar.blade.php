@@ -94,7 +94,8 @@
                         <a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown" href="#" role="button"
                             aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-md"><img class="avatar-img"
-                                    src="{{ url('templates/backend/src') }}/assets/img/avatars/10.jpg" alt=""></div>
+                                    src="{{ url('templates/backend/src') }}/assets/img/avatars/10.jpg" alt="">
+                            </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end pt-0">
                             <div

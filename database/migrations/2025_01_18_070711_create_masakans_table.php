@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('masakans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaksi_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('masakan_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('harga_satuan');
-            $table->string('jumlah_satuan');
-            $table->string('total_harga');
+            $table->foreignId('menu_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->integer('harga_satuan');
+            $table->integer('jumlah_satuan');
+            $table->integer('total_harga');
             $table->timestamps();
         });
     }

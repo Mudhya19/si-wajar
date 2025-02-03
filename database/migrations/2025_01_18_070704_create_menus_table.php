@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_menu'); // pilih jenis menu kalau salah satu dipilih, maka yang aktif yang di pilih dari 2 field makanan dan minuman
             $table->string('nama_menu');
+            $table->enum('jenis_menu',['minuman', 'makanan']); // pilih jenis menu kalau salah satu dipilih, maka yang aktif yang di pilih dari 2 field makanan dan minuman
             // $table->string('nama_minuman');
             $table->string('satuan')->nullable();
             $table->enum('status',['tersedia', 'tidak tersedia']);
