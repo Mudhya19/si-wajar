@@ -28,14 +28,6 @@
                 </svg>Menu<span class="badge badge-sm bg-info ms-auto"></span>
             </a>
         </li>
-                <li
-            class="nav-item {{ in_array(Route::currentRouteName(), ['masakan.index', 'masakan.create', 'masakan.edit']) ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('masakan.index') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-speedometer"></use>
-                </svg>Harga Masakan<span class="badge badge-sm bg-info ms-auto"></span>
-            </a>
-        </li>
     </ul>
     <!-- Konten Sidebar -->
     <div class="sidebar-content flex-grow-1">

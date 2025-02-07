@@ -12,7 +12,7 @@
                 </button>
                 <ul class="header-nav d-none d-lg-flex">
                     <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-                    <li class="nav-item {{ in_array(Route::currentRouteName(), ['menu.index', 'menu.create', 'menu.edit']) ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.index') }}">Users</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
                 </ul>
                 <ul class="header-nav ms-auto">

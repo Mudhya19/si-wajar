@@ -3,19 +3,19 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Menampilkan Menu</h4>
+            <h4 class="card-title">Menampilkan Harga Masakan</h4>
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <a href="{{ route('menu.create') }}" class="btn btn-primary mb-2">
-                    <i class="fas fa-plus"></i> Tambah Menu
+                <a href="{{ route('masakan.create') }}" class="btn btn-primary mb-2">
+                    <i class="fas fa-plus"></i> Tambah Harga Masakan
                 </a>
                 <div class="d-flex flex-wrap gap-2">
                     <!-- Form Pencarian -->
-                    <form action="{{ route('menu.index') }}" method="GET" class="form-inline">
+                    <form action="{{ route('masakan.index') }}" method="GET" class="form-inline">
                         <input type="hidden" name="status" value="{{ request('status') }}">
                         <input type="hidden" name="per_page" value="{{ request('per_page') }}">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Cari Nama Menu..."
-                                value="{{ request('search') }}">
+                            <input type="text" name="search" class="form-control"
+                                placeholder="Cari Nama Harga Masakan..." value="{{ request('search') }}">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-primary" type="submit">
                                     <i class="fas fa-search">Pencarian</i>
@@ -24,7 +24,7 @@
                         </div>
                     </form>
                     <!-- Entries Per Page -->
-                    <form method="GET" action="{{ route('menu.index') }}" class="form-inline">
+                    <form method="GET" action="{{ route('masakan.index') }}" class="form-inline">
                         <input type="hidden" name="search" value="{{ request('search') }}">
                         <input type="hidden" name="status" value="{{ request('status') }}">
                         <select name="per_page" class="form-control" onchange="this.form.submit()">
@@ -44,20 +44,8 @@
             <ul class="nav nav-tabs mb-4">
                 <li class="nav-item">
                     <a class="nav-link {{ !request('status') ? 'active' : '' }}"
-                        href="{{ route('menu.index', request()->except('status')) }}">
+                        href="{{ route('masakan.index', request()->except('status')) }}">
                         Semua
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request('status') == 'tersedia' ? 'active' : '' }}"
-                        href="{{ route('menu.index', array_merge(request()->except('status'), ['status' => 'tersedia'])) }}">
-                        Active
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request('status') == 'tidak tersedia' ? 'active' : '' }}"
-                        href="{{ route('menu.index', array_merge(request()->except('status'), ['status' => 'tidak tersedia'])) }}">
-                        Inactive
                     </a>
                 </li>
             </ul>
@@ -66,31 +54,29 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>No</th>
-                            <th>Nama Menu</th>
-                            <th>Jenis Menu</th>
-                            <th>Satuan</th>
-                            <th>Status</th>
+                            <th>Nama masakan</th>
+                            <th>Jenis masakan</th>
+                            <th>Satuan Harga</th>
+                            <th>Jumlah Satuan</th>
+                            <th>Total Harga</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($menus as $menu)
+                        @forelse ($masakans as $masakan)
                             <tr>
-                                <td>{{ $loop->iteration + ($menus->currentPage() - 1) * $menus->perPage() }}</td>
-                                <td>{{ $menu->nama_menu }}</td>
-                                <td>{{ $menu->jenis_menu }}</td>
-                                <td>{{ $menu->satuan }}</td>
-                                <td>
-                                    {{-- <span class="badge badge-{{ $menu->status == 'active' ? 'success' : 'danger' }}"> --}}
-                                    {{ $menu->status }}
-                                    {{-- </span> --}}
-                                </td>
+                                <td>{{ $loop->iteration + ($masakans->currentPage() - 1) * $masakans->perPage() }}</td>
+                                <td>{{ $masakan->menu->nama_masakan }}</td>
+                                <td>{{ $masakan->menu->jenis_masakan . '-' . $masakan->menu->satuan }}</td>
+                                <td>{{ $masakan->satuan_harga }}</td>
+                                <td>{{ $masakan->jumlah_satuan }}</td>
+                                <td>{{ $masakan->total_harga }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('menu.edit', $menu->id) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('masakan.edit', $masakan->id) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit">Edit</i>
                                         </a>
-                                        <form action="{{ route('menu.destroy', $menu->id) }}" method="POST">
+                                        <form action="{{ route('masakan.destroy', $masakan->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"
@@ -113,11 +99,11 @@
             <!-- Pagination -->
             <div class="d-flex justify-content-between align-items-center">
                 <div class="text-muted">
-                    Menampilkan {{ $menus->firstItem() }} sampai {{ $menus->lastItem() }} dari {{ $menus->total() }}
+                    Menampilkan {{ $masakans->firstItem() }} sampai {{ $masakans->lastItem() }} dari {{ $masakans->total() }}
                     entri
                 </div>
                 <nav>
-                    {{ $menus->appends(request()->query())->links('pagination::bootstrap-5') }}
+                    {{ $masakans->appends(request()->query())->links('pagination::bootstrap-5') }}
                 </nav>
             </div>
         </div>

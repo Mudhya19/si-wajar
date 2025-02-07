@@ -17,7 +17,6 @@ class MenuController extends Controller
     {
         // $sortColumn = request('sort', 'nama_menu');
         // $sortDirection = request('direction', 'asc');
-
         // $data['menus']  = Menu::all();
         $data['menus'] = Menu::query()
             ->when(request('search'), function ($query) {
