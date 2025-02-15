@@ -15,7 +15,7 @@
             <h4 class="card-title">Edit Menu</h4>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('menu.update', $menu) }}">
+            <form method="POST" action="{{ route('menu.update', $menu) }}" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
                 <!-- Nama Menu -->
@@ -70,6 +70,22 @@
                         @endforeach
                     </select>
                     @error('status')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Upload Photo -->
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Upload Foto Baru</label>
+                    <!-- Preview foto lama -->
+                    @if ($menu->photo)
+                        <div class="mb-2">
+                            <img src="{{ asset('uploads/' . $menu->photo) }}" alt="Foto Menu" width="100">
+                        </div>
+                    @endif
+                    <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo"
+                        name="photo" accept="image/*">
+                    @error('photo')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

@@ -15,7 +15,7 @@
             <h4 class="card-title">Tambah Menu Baru</h4>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('menu.store') }}">
+            <form method="POST" action="{{ route('menu.store') }}" enctype="multipart/form-data">
                 @csrf
                 <!-- Nama Menu -->
                 <div class="mb-3">
@@ -67,6 +67,16 @@
                         @endforeach
                     </select>
                     @error('status')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Upload Photo -->
+                <div class="mb-3">
+                    <label for="photo" class="form-label">Upload Foto</label>
+                    <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo"
+                        name="photo" accept="image/*">
+                    @error('photo')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

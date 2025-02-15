@@ -18,6 +18,7 @@ class MenuController extends Controller
         // $sortColumn = request('sort', 'nama_menu');
         // $sortDirection = request('direction', 'asc');
         // $data['menus']  = Menu::all();
+
         $data['menus'] = Menu::query()
             ->when(request('search'), function ($query) {
                 $query->where('nama_menu', 'like', '%' . request('search') . '%');
@@ -44,18 +45,29 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi input
         $request->validate([
-            'jenis_menu' => 'required|in:minuman,makanan',
-            'nama_menu' => 'required|string',
-            'satuan' => 'nullable|string',
-            'status' => 'required|in:tersedia,tidak tersedia',
+            'jenis_menu' => 'required|in:minuman,makanan', // Hanya boleh 'minuman' atau 'makanan'
+            'nama_menu' => 'required|string', // Nama menu harus berupa string
+            'satuan' => 'nullable|string', // Boleh null, tetapi jika diisi harus string
+            'status' => 'required|in:tersedia,tidak tersedia', // Status hanya boleh 'tersedia' atau 'tidak tersedia'
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // File foto wajib diupload
         ]);
 
+        // Ambil semua data dari request
         $data = $request->all();
-        // $data['user_id'] = Auth::user()->id;
+
+        // Proses upload file foto
+        if ($request->hasFile('photo')) {
+            $photo = time() . '.' . $request->photo->extension(); // Beri nama unik untuk file
+            $request->photo->move(public_path('uploads'), $photo); // Simpan file di folder 'public/uploads'
+            $data['photo'] = $photo; // Simpan nama file ke array data untuk dimasukkan ke database
+        }
+
+        // Simpan data ke dalam database
         Menu::create($data);
 
+        // Redirect ke halaman index menu dengan pesan sukses
         return redirect()->route('menu.index')->with('success', 'Data Menu berhasil ditambahkan.');
     }
 
@@ -86,9 +98,25 @@ class MenuController extends Controller
             'nama_menu' => 'required|string',
             'satuan' => 'nullable|string',
             'status' => 'required|in:tersedia,tidak tersedia',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $data = $request->all();
+        // Ambil data input kecuali file photo
+        $data = $request->except(['photo']);
+
+        // Proses upload file foto jika ada file baru
+        if ($request->hasFile('photo')) {
+            // Hapus file lama jika ada
+            if ($menu->photo && file_exists(public_path('uploads/' . $menu->photo))) {
+                unlink(public_path('uploads/' . $menu->photo));
+            }
+
+            // Upload file baru
+            $photo = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('uploads'), $photo);
+            $data['photo'] = $photo;
+        }
+
         $menu->update($data);
 
         return to_route('menu.index')->with('success', ' Data menu berhasil di perbarui');

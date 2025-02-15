@@ -9,6 +9,13 @@ class Menu extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+//     protected $fillable = [
+//     'nama_menu',
+//     'jenis_menu',
+//     'satuan',
+//     'status',
+//     'photo'
+// ];
 
     public function masakan()
     {

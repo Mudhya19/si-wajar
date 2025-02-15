@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\backend\v1;
 
-
 use App\Http\Controllers\Controller;
 use App\Models\Masakan;
 use App\Models\Menu;
 use App\Models\User;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,6 +39,7 @@ class MasakanController extends Controller
     {
         $data['menus'] = Menu::all();
         $data['users'] = User::where('rule', '=', 'user')->where('rule', '!=', 'admin')->get();
+
         return view('backend.v1.pages.masakan.create', $data);
     }
 
@@ -49,14 +50,17 @@ class MasakanController extends Controller
     {
         //
         $request->validate([
+            'menu_id' => 'required',
+            // 'transaksi_id' => 'required',
             'harga_satuan' => 'required|integer',
             'jumlah_satuan' => 'required|integer',
             'total_harga' => 'required|integer',
         ]);
 
         $data['menus'] = Menu::where('id', $request->menu_id)->first();
-        // $data['harga_satuan'] = $data['menus']->harga;
-        // $data['total_harga'] = $data['harga_satuan'] * $request->jumlah_satuan;
+        $data['transaksi_id'] = 'TRX-' . time() . '-' . Auth::id();
+        // Hitung total harga secara otomatis
+        $data['total_harga'] = $data['harga_satuan'] * $data['jumlah_satuan'];
 
         $data = $request->all();
         // $data['user_id'] = Auth::user()->id;

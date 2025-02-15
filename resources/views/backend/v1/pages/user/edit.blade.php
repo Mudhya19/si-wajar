@@ -33,7 +33,7 @@
                     <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
-                            name="password" value="{{ old('password', $user->password) }}" required>
+                            name="password" value="{{ old('password') }}" required>
                         <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                             <i class="fas fa-eye">Tampilkan</i>
                         </button>
