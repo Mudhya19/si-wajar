@@ -24,7 +24,7 @@
     });
 </script>
 {{-- @push('script') --}}
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const hargaSatuan = document.getElementById('harga_satuan');
         const jumlahSatuan = document.getElementById('jumlah_satuan');
@@ -43,8 +43,61 @@
         // Hitung saat pertama kali load (untuk edit)
         calculateTotal();
     });
-</script>
+</script> --}}
 {{-- @endpush --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hargaSatuan = document.getElementById('harga_satuan');
+        const jumlahSatuan = document.getElementById('jumlah_satuan');
+        const totalHarga = document.getElementById('total_harga');
+
+        // Format number dengan titik sebagai pemisah ribuan
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        // Parse number dari format string dengan titik
+        function parseNumber(str) {
+            return parseInt(str.replace(/\./g, '')) || 0;
+        }
+
+        function calculateTotal() {
+            const harga = parseNumber(hargaSatuan.value);
+            const jumlah = parseInt(jumlahSatuan.value) || 0;
+            const total = harga * jumlah;
+
+            totalHarga.value = formatNumber(total);
+        }
+
+        // Format harga satuan saat input
+        hargaSatuan.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\./g, '');
+            if (!isNaN(value)) {
+                e.target.value = formatNumber(value);
+            }
+        });
+
+        // Format harga satuan saat keluar dari field
+        hargaSatuan.addEventListener('blur', function(e) {
+            let value = parseNumber(e.target.value);
+            e.target.value = formatNumber(value);
+        });
+
+        // Hitung saat input berubah
+        hargaSatuan.addEventListener('input', calculateTotal);
+        jumlahSatuan.addEventListener('input', calculateTotal);
+
+        // Format nilai awal jika ada
+        if (hargaSatuan.value) {
+            hargaSatuan.value = formatNumber(parseNumber(hargaSatuan.value));
+        }
+        if (totalHarga.value) {
+            totalHarga.value = formatNumber(parseNumber(totalHarga.value));
+        }
+
+        calculateTotal();
+    });
+</script>
 <!-- CoreUI and necessary plugins-->
 <script src="{{ url('templates/backend') }}/node_modules/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
 <script src="{{ url('templates/backend') }}/node_modules/simplebar/dist/simplebar.min.js"></script>

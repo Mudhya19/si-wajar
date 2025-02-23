@@ -45,6 +45,7 @@
                 @forelse ($masakans as $masakan)
                     <div class="col-md-4">
                         <div class="card mb-3">
+                            @dd($masakan->all())
                             <img src="{{ asset('uploads/' . $masakan->menu->photo) }}" class="card-img-top"
                                 alt="Foto Masakan" style="height: 200px; object-fit: cover;">
                             <div class="card-body">
