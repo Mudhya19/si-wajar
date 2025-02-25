@@ -98,6 +98,34 @@
         calculateTotal();
     });
 </script>
+<script>
+    function toggleStatus() {
+        const currentStatus = document.getElementById('statusToggle').dataset.status;
+        const newStatus = currentStatus === 'tersedia' ? 'tidak tersedia' : 'tersedia';
+
+        // Update URL dengan status baru
+        const url = new URL(window.location.href);
+        url.searchParams.set('status', newStatus);
+        window.location.href = url.toString();
+    }
+
+    // Update label dan data-status sesuai parameter URL
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusParam = new URLSearchParams(window.location.search).get('status');
+        const statusToggle = document.getElementById('statusToggle');
+        const statusLabel = document.getElementById('statusLabel');
+
+        if (statusParam === 'tersedia') {
+            statusToggle.checked = true;
+            statusLabel.textContent = 'Tersedia';
+            statusToggle.dataset.status = 'tersedia';
+        } else if (statusParam === 'tidak tersedia') {
+            statusToggle.checked = false;
+            statusLabel.textContent = 'Tidak Tersedia';
+            statusToggle.dataset.status = 'tidak tersedia';
+        }
+    });
+</script>
 <!-- CoreUI and necessary plugins-->
 <script src="{{ url('templates/backend') }}/node_modules/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
 <script src="{{ url('templates/backend') }}/node_modules/simplebar/dist/simplebar.min.js"></script>

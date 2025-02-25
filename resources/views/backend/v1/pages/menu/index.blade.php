@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="card-body">
-            <!-- Tabs Filter -->
+            {{-- <!-- Tabs Filter -->
             <ul class="nav nav-tabs mb-4">
                 <li class="nav-item">
                     <a class="nav-link {{ !request('status') ? 'active' : '' }}"
@@ -59,6 +59,25 @@
                         href="{{ route('menu.index', array_merge(request()->except('status'), ['status' => 'tidak tersedia'])) }}">
                         Inactive
                     </a>
+                </li>
+            </ul> --}}
+            <!-- Tabs Filter -->
+            <ul class="nav nav-tabs mb-4 align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link {{ !request('status') ? 'active' : '' }}"
+                        href="{{ route('menu.index', request()->except('status')) }}">
+                        Semua
+                    </a>
+                </li>
+                <li class="nav-item ms-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="statusToggle"
+                            {{ in_array(request('status'), ['tersedia', 'tidak tersedia']) ? 'checked' : '' }}
+                            data-status="{{ request('status', 'tidak tersedia') }}" onchange="toggleStatus()">
+                        <label class="form-check-label fw-bold" id="statusLabel">
+                            {{ request('status') == 'tersedia' ? 'Tersedia' : 'Tidak Tersedia' }}
+                        </label>
+                    </div>
                 </li>
             </ul>
             <div class="table-responsive p-3">

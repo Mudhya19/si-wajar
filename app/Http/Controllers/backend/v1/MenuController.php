@@ -98,7 +98,7 @@ class MenuController extends Controller
             'nama_menu' => 'required|string',
             'satuan' => 'nullable|string',
             'status' => 'required|in:tersedia,tidak tersedia',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Ambil data input kecuali file photo
