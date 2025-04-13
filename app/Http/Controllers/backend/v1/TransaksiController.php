@@ -60,7 +60,7 @@ class TransaksiController extends Controller
 
         // $request['users'] = Menu::where('id', $request->user_id)->first();
         $request['transaksi_id'] = 'TRX-' . time() . '-' . Auth::id();
-        $request['user_id'] = Auth::user()->id;
+        // $request['user_id'] = Auth::user()->id;
 
         // Konversi tanggal format
         $request['tanggal_transaksi'] = Carbon::parse($request->tanggal_transaksi);

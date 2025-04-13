@@ -26,7 +26,7 @@ Route::middleware([
 ])->group(function () {
     // Dashboard atau halaman utama setelah login
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
+    Route::get('logout', [DashboardController::class, 'logout'])->name('logout');
     // Resource routes untuk menu aplikasi
     Route::resource('menu', MenuController::class);
     Route::resource('masakan', MasakanController::class);

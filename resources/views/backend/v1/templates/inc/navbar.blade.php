@@ -12,7 +12,9 @@
                 </button>
                 <ul class="header-nav d-none d-lg-flex">
                     <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-                    <li class="nav-item {{ in_array(Route::currentRouteName(), ['menu.index', 'menu.create', 'menu.edit']) ? 'active' : '' }}"><a class="nav-link" href="{{ route('user.index') }}">Users</a></li>
+                    <li
+                        class="nav-item {{ in_array(Route::currentRouteName(), ['menu.index', 'menu.create', 'menu.edit']) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('user.index') }}">Users</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
                 </ul>
                 <ul class="header-nav ms-auto">
@@ -98,7 +100,7 @@
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end pt-0">
-                            <div
+                            {{-- <div
                                 class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
                                 Account</div>
                             <a class="dropdown-item" href="#">
@@ -127,7 +129,7 @@
                                 </svg> Comments<span class="badge badge-sm bg-warning ms-2">42</span></a>
                             <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2">
                                 <div class="fw-semibold">Settings</div>
-                            </div>
+                            </div> --}}
                             <a class="dropdown-item" href="#">
                                 <svg class="icon me-2">
                                     <use
@@ -140,7 +142,7 @@
                                         xlink:href="{{ url('templates/backend') }}/node_modules/@coreui/icons/sprites/free.svg#cil-settings">
                                     </use>
                                 </svg> Settings</a>
-                            <a class="dropdown-item" href="#">
+                            {{-- <a class="dropdown-item" href="#">
                                 <svg class="icon me-2">
                                     <use
                                         xlink:href="{{ url('templates/backend') }}/node_modules/@coreui/icons/sprites/free.svg#cil-credit-card">
@@ -158,13 +160,24 @@
                                     <use
                                         xlink:href="{{ url('templates/backend') }}/node_modules/@coreui/icons/sprites/free.svg#cil-lock-locked">
                                     </use>
-                                </svg> Lock Account</a>
-                            <a class="dropdown-item" href="#">
+                                </svg> Lock Account</a> --}}
+                            <!-- Logout Dropdown Item -->
+                            <a class="dropdown-item" href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <svg class="icon me-2">
                                     <use
                                         xlink:href="{{ url('templates/backend') }}/node_modules/@coreui/icons/sprites/free.svg#cil-account-logout">
                                     </use>
-                                </svg> Logout</a>
+                                </svg>
+                                Logout
+                            </a>
+
+                            <!-- Logout Form (disembunyikan) -->
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
+
                         </div>
                     </li>
                 </ul>
