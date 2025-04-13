@@ -9,16 +9,17 @@ class Menu extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-//     protected $fillable = [
-//     'nama_menu',
-//     'jenis_menu',
-//     'satuan',
-//     'status',
-//     'photo'
-// ];
+
+    // protected $fillable = [
+    //     'jenis_menu',
+    //     'nama_menu',
+    //     'photo',
+    //     'satuan',
+    //     'status',
+    // ];
 
     public function masakan()
     {
-        return $this->belongTo(Masakan::class);
+        return $this->hasMany(Masakan::class);
     }
 }

@@ -10,14 +10,21 @@ class Transaksi extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    // protected $fillable = [
+    //     'user_id',
+    //     'total_harga',
+    //     'metode',
+    //     'tanggal_transaksi',
+    // ];
+
     public function user()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function laporan()
     {
-        return $this->belongTo(Laporan::class);
+        return $this->belongsTo(Laporan::class);
     }
 
     public function masakan()

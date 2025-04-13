@@ -22,8 +22,8 @@ class UserController extends Controller
             ->when(request('search'), function ($query) {
                 $query->where('name', 'like', '%' . request('search') . '%');
             })
-            ->when(request('status'), function ($query) {
-                $query->where('status', request('status'));
+            ->when(request('rule'), function ($query) {
+                $query->where('rule', request('rule'));
             })
             ->paginate(request('per_page', 10))
             ->withQueryString();

@@ -30,7 +30,7 @@
 
                 <!-- Password -->
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                    <label for="password" class="form-label">Password Baru<span class="text-danger">*</span></label>
                     <div class="input-group">
                         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
                             name="password" value="{{ old('password') }}" required>

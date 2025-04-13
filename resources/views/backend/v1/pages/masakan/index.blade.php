@@ -42,20 +42,63 @@
         <div class="card-body">
             <!-- Menampilkan Data Dalam Bentuk Card -->
             <div class="row">
+                {{-- @dd($masakans); --}}
+                {{-- @forelse ($masakans as $masakan)
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            @foreach ($masakan->menu as $menu)
+                                @dd($menu)
+                                <img src="{{ asset('uploads/' . $menu->photo) }}" class="card-img-top" alt="Foto Masakan"
+                                    style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $menu->nama_menu }}</h5>
+                                    <p class="card-text">
+                                        Jenis: {{ $menu->jenis_menu }} <br>
+                                        Satuan: {{ $menu->satuan }} <br>
+                                        Harga Satuan: {{ $harga_satuan }} <br>
+                                        Jumlah: {{ $jumlah_satuan }} <br>
+                                        Total: {{ $total_harga }}
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{{ route('masakan.edit', $id) }}" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <form action="{{ route('masakan.destroy', $id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                <i class="fas fa-trash"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <p class="text-center">Tidak ada data</p>
+                    </div>
+                @endforelse --}}
                 @forelse ($masakans as $masakan)
                     <div class="col-md-4">
                         <div class="card mb-3">
-                            @dd($masakan->all())
-                            <img src="{{ asset('uploads/' . $masakan->menu->photo) }}" class="card-img-top"
-                                alt="Foto Masakan" style="height: 200px; object-fit: cover;">
+                            @if ($masakan->menu && $masakan->menu->photo)
+                                <img src="{{ asset('uploads/' . $masakan->menu->photo) }}" class="card-img-top"
+                                    alt="Foto Masakan" style="height: 200px; object-fit: cover;">
+                            @else
+                                <div class="bg-secondary text-center text-white py-5">No Image</div>
+                            @endif
+
                             <div class="card-body">
-                                <h5 class="card-title">{{ $masakan->menu->nama_masakan }}</h5>
+                                <h5 class="card-title">{{ $masakan->menu->nama_menu ?? 'Menu Tidak Ditemukan' }}</h5>
                                 <p class="card-text">
-                                    Jenis: {{ $masakan->menu->jenis_masakan }} <br>
-                                    Satuan: {{ $masakan->menu->satuan }} <br>
-                                    Harga Satuan: {{ $masakan->satuan_harga }} <br>
+                                    Jenis: {{ $masakan->menu->jenis_menu ?? '-' }} <br>
+                                    Satuan: {{ $masakan->menu->satuan ?? '-' }} <br>
+                                    Harga Satuan: {{ $masakan->harga_satuan }} <br>
                                     Jumlah: {{ $masakan->jumlah_satuan }} <br>
-                                    Total: {{ $masakan->total_harga }}
+                                    Total: {{ $masakan->total_harga }} <br>
                                 </p>
                                 <div class="d-flex justify-content-between">
                                     <a href="{{ route('masakan.edit', $masakan->id) }}" class="btn btn-warning btn-sm">

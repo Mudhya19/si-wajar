@@ -19,6 +19,7 @@ class MasakanController extends Controller
     public function index(Request $request)
     {
         // $data['menus']  = Menu::all();
+        // $data['masakans']  = Masakan::all();
         $data['masakans'] = Masakan::query()
             ->when(request('search'), function ($query) {
                 $query->where('nama_menu', 'like', '%' . request('search') . '%');
@@ -38,7 +39,7 @@ class MasakanController extends Controller
     public function create()
     {
         $data['menus'] = Menu::all();
-        $data['users'] = User::where('rule', '=', 'user')->where('rule', '!=', 'admin')->get();
+        $data['users'] = User::where('rule', '=', 'user')->where('rule', '=', 'admin')->get();
 
         return view('backend.v1.pages.masakan.create', $data);
     }
@@ -50,17 +51,17 @@ class MasakanController extends Controller
     {
         //
         $request->validate([
-            'menu_id' => 'required',
-            'transaksi_id' => 'required',
+            // 'menu_id' => 'required',
+            // 'transaksi_id' => 'required',
             'harga_satuan' => 'required',
-            'jumlah_satuan' => 'required|integer',
+            'jumlah_satuan' => 'required',
             'total_harga' => 'required',
         ]);
 
         $data['menus'] = Menu::where('id', $request->menu_id)->first();
         $data['transaksi_id'] = 'TRX-' . time() . '-' . Auth::id();
         // Hitung total harga secara otomatis, Konversi format harga satuan ke numeric
-        $data['harga_satuan'] = str_replace('.', '', $data['harga_satuan']);
+        $data['harga_satuan'] = (int) str_replace('.', '', $data['harga_satuan']);
         $data['total_harga'] = $request['harga_satuan'] * $request['jumlah_satuan'];
 
         $data = $request->all();

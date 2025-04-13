@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class TransaksiController extends Controller
 {
@@ -20,10 +21,8 @@ class TransaksiController extends Controller
     {
         $data['transaksis'] = Transaksi::query()
             ->when(request('search'), function ($query) {
-                $query->where('nama_menu', 'like', '%' . request('search') . '%');
-            })
-            ->when(request('status'), function ($query) {
-                $query->where('status', request('status'));
+                $query->where('nama_menu', 'like', '%' . request('search') . '%')
+                ->orWhere('metode', 'like', '%' . request('search') . '%');
             })
             ->paginate(request('per_page', 10))
             ->withQueryString();
@@ -36,15 +35,41 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'masakans' => Masakan::all(),
+            'menus' => Menu::all(),
+            'users' => User::whereIn('rule', ['admin', 'kasir'])->get()
+        ];
+
+        return view('backend.v1.pages.transaksi.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         //
+        $request->validate([
+            // 'user_id' => 'required',
+            'total_harga' => 'required',
+            'metode' => 'required|in:tunai, non tunai',
+            'tanggal_transaksi' => 'required|date',
+        ]);
+
+        // $request['users'] = Menu::where('id', $request->user_id)->first();
+        $request['transaksi_id'] = 'TRX-' . time() . '-' . Auth::id();
+        $request['user_id'] = Auth::user()->id;
+
+        // Konversi tanggal format
+        $request['tanggal_transaksi'] = Carbon::parse($request->tanggal_transaksi);
+
+
+        $data = $request->all();
+        Transaksi::create($data);
+
+        return redirect()->route('transaksi.index')->with('success', ' Data Transaksi berhasil ditambahkan');
     }
 
     /**

@@ -10,9 +10,20 @@ class Laporan extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    // protected $fillable = [
+    //     'transaksi_id',
+    //     'total_pendapatan',
+    //     'pemasukan',
+    //     'pengeluaran',
+    //     'tanggal',
+    //     'keterangan',
+    //     'kendala',
+    //     'solusi',
+    // ];
+
     public function transaksi()
     {
-        return $this->hasMany(Transaksi::class);
+        return $this->belongsTo(Transaksi::class);
     }
 
 }

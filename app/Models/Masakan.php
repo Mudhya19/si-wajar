@@ -10,13 +10,21 @@ class Masakan extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    // protected $fillable = [
+    //     'menu_id',
+    //     'transaksi_id',
+    //     'harga_satuan',
+    //     'jumlah_satuan',
+    // ];
+
     public function transaksi()
     {
-        return $this->belongTo(Transaksi::class);
-    }   
+        return $this->belongsTo(Transaksi::class);
+    }
 
     public function menu()
     {
-        return $this->hasMany(Menu::class);
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
+
 }

@@ -28,14 +28,14 @@
                 </svg>Menu<span class="badge badge-sm bg-info ms-auto"></span>
             </a>
         </li>
-        <li
+        {{-- <li
             class="nav-item {{ in_array(Route::currentRouteName(), ['masakan.index', 'masakan.create', 'masakan.edit']) ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('masakan.index') }}">
                 <svg class="nav-icon">
                     <use xlink:href="{{ url('templates/backend')  }}/node_modules/@coreui/icons/sprites/free.svg#cil-columns"></use>
                 </svg>Harga Masakan<span class="badge badge-sm bg-info ms-auto"></span>
             </a>
-        </li>
+        </li> --}}
         </li>
         <li
             class="nav-item {{ in_array(Route::currentRouteName(), ['transaksi.index', 'transaksi.create', 'transaksi.edit']) ? 'active' : '' }}">

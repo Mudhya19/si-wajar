@@ -19,27 +19,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('backend.v1.templates.index');
-});
-Route::resource('menu', MenuController::class);
-Route::resource('masakan', MasakanController::class);
-Route::resource('user', UserController::class);
-Route::resource('transaksi', TransaksiController::class);
-Route::resource('laporan', LaporanController::class);
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    // Route::get('/', function () {return view('dashboard');})->name('dashboard');
-    // Route::get('/', function () {
-    //     return view('backend.v1.templates.index');
-    // });
-    // Route::resource('menu', MenuController::class);
-    // Route::resource('masakan', MasakanController::class);
-    // Route::resource('user', UserController::class);
-    // Route::resource('transaksi', TransaksiController::class);
-    // Route::resource('laporan', LaporanController::class);
+    // Dashboard atau halaman utama setelah login
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Resource routes untuk menu aplikasi
+    Route::resource('menu', MenuController::class);
+    Route::resource('masakan', MasakanController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('transaksi', TransaksiController::class);
+    Route::resource('laporan', LaporanController::class);
 });
